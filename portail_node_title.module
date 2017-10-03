@@ -6,10 +6,10 @@
  */
 
 /**
- * Implements hook_menu().
+ * Implements hook_form_alter().
  */
 function portail_node_title_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == 'pi-ce_node_form') {
-    drupal_set_title('My new title');
+  if ($form_id == 'pi_ce_node_form') {
+    drupal_set_title("Inscription d'une production théâtrale");
   }
 }
