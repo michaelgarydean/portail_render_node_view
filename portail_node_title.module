@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Module file for the portail_node_title module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function portail_node_title_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'pi-ce_node_form') {
+    drupal_set_title('My new title');
+  }
+}

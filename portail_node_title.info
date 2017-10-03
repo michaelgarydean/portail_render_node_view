@@ -1,0 +1,5 @@
+name = "Modifier le titre du type de contenu de la «pièce»"
+description = "Changer le titre du node de «Créer Pièce» à «Inscription d'une production théâtrale»"
+core = 7.x
+package = Théatre québécois
+files[]=portail_node_title.module
