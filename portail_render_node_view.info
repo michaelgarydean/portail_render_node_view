@@ -1,0 +1,5 @@
+name = "Modifications aux affichages de node."
+description = "Configurer comment les nodes sont affichés."
+core = 7.x
+package = Théatre québécois
+files[]=portail_render_node_view.module

@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Module file for the portail_render_node_view module.
+ */
+
+/**
+ * Implements template_preprocess_field().
+ */
+function portail_render_node_view_preprocess_field(&$variables) {
+  print('<pre>');
+  if($variables['element']['#field_name'] == 'field_nom_production') {
+
+    //Allocate an array to hold all the field collection items
+    $field_collections = array();
+
+    //Get data associated with field, in this case with the Term Reference
+    $field_data = $variables['element']['#items'][0];
+    
+//var_dump($variables['content']['field_nom_production']['#markup']);
+    //var_dump($variables['items'][0]['#markup']);
+
+   $url = $variables['element']['field_nom_production']['#options']['entity']->field_lien_production['und'][0]['url'];
+
+    $variables['items'][0] = array(
+      '#suffix' => 'hello'
+    );
+    //Go through each element of the field to identify the field collection items
+    foreach(element_children($variables['element']) as $key) {
+      $url = $variables['element'][$key]['#options']['entity']->field_lien_production['und'][0]['url'];
+      $title = $variables['element'][$key]['#options']['entity']->field_lien_production['und'][0]['title'];
+      //var_dump($variables['element'][$key]);
+//Get each field collection item
+      //$field_collections = array_pop($variables['element'][$key]['entity']['field_collection_item']);
+    }
+
+    //var_dump();
+
+    //var_dump($variables['element']['#object']);
+  }
+  print('</pre>');
+}
