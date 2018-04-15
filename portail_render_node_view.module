@@ -21,7 +21,7 @@ function portail_render_node_view_preprocess_field(&$variables) {
       $link_field = $entity['#options']['entity']->field_lien_production;
 
       //If the field is a term reference, and it has field_lien_production, get the title and URL
-      if($entity['#options']['entity_type'] == "taxonomy_term" && isset($link_field)) {
+      if($entity['#options']['entity_type'] == "taxonomy_term" && array_key_exists('und',$link_field)) {
         $url = $link_field['und'][0]['url'];
         $title = $link_field['und'][0]['title'];
       
@@ -29,6 +29,8 @@ function portail_render_node_view_preprocess_field(&$variables) {
         $taxonomy_term_url = $entity['#href'];
 
         //Only output markup for URL if one has been set.        
+        $link_markup = '';
+
         if(isset($url)) {
           $link_markup = " [<a href='$url'>$title</a>]";
         }
