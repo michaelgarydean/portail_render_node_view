@@ -3,6 +3,7 @@
 /**
  * @file
  * Module file for the portail_render_node_view module.
+ * This solution should be redone with this in mind: https://www.computerminds.co.uk/articles/rendering-drupal-7-fields-right-way
  */
 
 /**
@@ -10,7 +11,6 @@
  */
 
 function portail_render_node_view_preprocess_field(&$variables) {
-  print('<pre>');
 
   //Only change markup if the field is in the field_nom_production field collection.
   if($variables['element']['#field_name'] == 'field_nom_production') {
@@ -24,36 +24,23 @@ function portail_render_node_view_preprocess_field(&$variables) {
       if($entity['#options']['entity_type'] == "taxonomy_term" && isset($link_field)) {
         $url = $link_field['und'][0]['url'];
         $title = $link_field['und'][0]['title'];
+      
+        $taxonomy_term_title = $entity['#title'];
+        $taxonomy_term_url = $entity['#href'];
+
+        //Only output markup for URL if one has been set.        
+        if(isset($url)) {
+          $link_markup = " [<a href='$url'>$title</a>]";
+        }
+
+        //Build markup for field.
+        $markup = "<a href='$taxonomy_term_url'>$taxonomy_term_title</a>$link_markup";
+
+        //Output the original field, plus the link associated with the term
+        $variables['items'][$index] = array(
+          '#markup' => $markup
+        );
       }
-
-      //Output the original field, plus the link associated with the term
-      $variables['items'][$index] = array(
-        '#suffix' => "<a href='$url'>$title</a>" 
-      );
-
     }
-
-    //Get data associated with field, in this case with the Term Reference
-    //$field_data = $variables['element']['#items'][0];
-    
-    //$url = $variables['element']['field_nom_production']['#options']['entity']->field_lien_production['und'][0]['url'];
-
-    //$variables['items'][0] = array(
-      //'#suffix' => 'hello'
-    //);
-
-    //Go through each element of the field to identify the field collection items
-//    foreach(element_children($variables['element']) as $key) {
-  //    $url = $variables['element'][$key]['#options']['entity']->field_lien_production['und'][0]['url'];
-    //  $title = $variables['element'][$key]['#options']['entity']->field_lien_production['und'][0]['title'];
-      //var_dump($variables['element'][$key]);
-//Get each field collection item
-      //$field_collections = array_pop($variables['element'][$key]['entity']['field_collection_item']);
-   // }
-
-    //var_dump();
-
-    //var_dump($variables['element']['#object']);
   }
-  print('</pre>');
 }
